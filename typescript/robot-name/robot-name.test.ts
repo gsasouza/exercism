@@ -28,16 +28,16 @@ describe('Robot', () => {
     expect(robot.name).toMatch(/^[A-Z]{2}\d{3}$/)
   })
 
-  xit('name is the same each time', () => {
+  it('name is the same each time', () => {
     expect(robot.name).toEqual(robot.name)
   })
 
-  xit('different robots have different names', () => {
+  it('different robots have different names', () => {
     const differentRobot = new RobotName()
     expect(differentRobot.name).not.toEqual(robot.name)
   })
 
-  xit('is able to reset the name', () => {
+  it('is able to reset the name', () => {
     const originalName = robot.name
 
     robot.resetName()
@@ -47,7 +47,7 @@ describe('Robot', () => {
     expect(originalName).not.toEqual(newName)
   })
 
-  xit('should set a unique name after reset', () => {
+  it('should set a unique name after reset', () => {
     const NUMBER_OF_ROBOTS = 10000
     const usedNames = new Set()
 
@@ -60,7 +60,7 @@ describe('Robot', () => {
     expect(usedNames.size).toEqual(NUMBER_OF_ROBOTS + 1)
   })
 
-  xit('new names should not be sequential', () => {
+  it('new names should not be sequential', () => {
     const name1 = robot.name
     const name2 = (new RobotName()).name
     const name3 = (new RobotName()).name
@@ -69,7 +69,7 @@ describe('Robot', () => {
     expect(areSequential(name2, name3)).toBe(false)
   })
 
-  xit('names from reset should not be sequential', () => {
+  it('names from reset should not be sequential', () => {
     const name1 = robot.name
     robot.resetName()
     const name2 = robot.name
