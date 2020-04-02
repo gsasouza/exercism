@@ -1,0 +1,5 @@
+node_modules
+.stack-work
+.exercism
+_build
+.idea
