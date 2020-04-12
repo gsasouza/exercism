@@ -4,21 +4,15 @@ defmodule WordCount do
 
   Words are compared case-insensitively.
   """
+
   @spec count(String.t()) :: map
   def count(sentence) do
-    character_only_word = String.replace(sentence, ~r/[!&@$%^&:,_]/, " ")
-    Enum.reduce(String.split(character_only_word, " "), %{}, &group_by_word/2)
+    sanitized_sentence = String.replace(sentence, ~r/[^A-Za-zÀ-ÿ0-9\-]/, " ")
+    split_sentence = String.split(sanitized_sentence, " ", trim: true)
+    Enum.reduce(split_sentence, %{}, &group_by_word/2)
   end
 
   defp group_by_word(word, acc) do
-    key = String.downcase(word)
-    if key == "" do
-      acc
-    else if Map.has_key?(acc, key) do
-        %{ acc | key => acc[key] + 1}
-      else
-        Map.merge(acc, %{ key => 1})
-      end
-    end
+    Map.update(acc, String.downcase(word), 1, &(&1 + 1))
   end
 end
